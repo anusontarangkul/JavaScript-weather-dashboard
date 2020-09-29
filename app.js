@@ -1,5 +1,11 @@
 var APIkey = "54f5d77c61f7b7d7da7d2c41a2956900";
-var listGroupElement = $(".list-group");
+var listGroup_Ul = $(".list-group");
+var today_Div = $(".today");
+var dashboardName_H2 = "#dashboard-name";
+var dashboardTemperature_P = "#dashboard-temperature";
+var dashboardHumidity_P = "#dashboard-humidity";
+var dashboardWind_P = "#dashboard-wind";
+var dashboardUV_P = "#dashbaord-uv";
 // search for city button
 // get current and future conditions
 //append results to search history
@@ -41,14 +47,13 @@ $(document).ready(function () {
       var currentIcon = response.weather[0].icon;
       var currentLat = response.coord.lat;
       var currentLon = response.coord.lon;
-      // getUVData(currentLat, currentLon);
       getUV(currentLat, currentLon);
       var newCitySearch = $("<button>").text(currentCity);
-      listGroupElement.append(newCitySearch);
+      listGroup_Ul.append(newCitySearch);
+      today_Div.append(currentCity);
     });
   }
-  // lon -104.98
-  // lat 39.74
+
   // UV Data function
   function getUV(currentLat, currentLon) {
     var queryURL =
@@ -62,7 +67,6 @@ $(document).ready(function () {
       type: "GET",
       url: queryURL,
     }).then(function (response) {
-      console.log(response.value);
       var uvIndex = response.value;
     });
   }
