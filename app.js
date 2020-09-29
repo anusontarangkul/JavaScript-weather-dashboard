@@ -7,7 +7,6 @@ var dashboardHumidity_P = $("#dashboard-humidity");
 var dashboardWind_P = $("#dashboard-wind");
 var dashboardUV_P = $("#dashboard-uv");
 var dashboardUVInfo_Span = $("#dashboard-uv-info");
-var uvIndex = 0;
 // search for city button
 // get current and future conditions
 //append results to search history
@@ -80,10 +79,18 @@ $(document).ready(function () {
       type: "GET",
       url: queryURL,
     }).then(function (response) {
-      uvIndex = response.value;
+      var uvIndex = response.value;
       dashboardUV_P.html(
         "UV Index: " + "<span id='dashboard-uv-info'>" + uvIndex + "</span>"
       );
+      var uvColorCode = $("#dashboard-uv-info");
+      if (uvIndex <= 2) {
+        uvColorCode.addClass("bg-success");
+      } else if (uvIndex > 2 && uvIndex <= 5) {
+        uvColorCode.addClass("bg-warning");
+      } else {
+        uvColorCode.addClass("bg-danger");
+      }
     });
   }
 
