@@ -1,11 +1,12 @@
 var APIkey = "54f5d77c61f7b7d7da7d2c41a2956900";
 var listGroup_Ul = $(".list-group");
 var today_Div = $(".today");
-var dashboardName_H2 = "#dashboard-name";
-var dashboardTemperature_P = "#dashboard-temperature";
-var dashboardHumidity_P = "#dashboard-humidity";
-var dashboardWind_P = "#dashboard-wind";
-var dashboardUV_P = "#dashbaord-uv";
+var dashboardName_H2 = $("#dashboard-name");
+var dashboardTemperature_P = $("#dashboard-temperature");
+var dashboardHumidity_P = $("#dashboard-humidity");
+var dashboardWind_P = $("#dashboard-wind");
+var dashboardUV_P = $("#dashbaord-uv");
+var uvIndex = 0;
 // search for city button
 // get current and future conditions
 //append results to search history
@@ -22,23 +23,24 @@ var dashboardUV_P = "#dashbaord-uv";
 
 $(document).ready(function () {
   $("#search-button").on("click", function () {
-    var searchValueElement = $("#search-value").val();
+    var searchValue_Input = $("#search-value").val();
 
     // clear input box
     $("#search-value").val("");
 
-    searchWeather(searchValueElement);
+    searchWeather(searchValue_Input);
   });
 
-  function searchWeather(searchValue) {
+  function searchWeather(searchValue_Input) {
     var queryURL =
       "https://api.openweathermap.org/data/2.5/weather?q=" +
-      searchValue +
+      searchValue_Input +
       "&appid=54f5d77c61f7b7d7da7d2c41a2956900";
     $.ajax({
       type: "GET",
       url: queryURL,
     }).then(function (response) {
+      // Create variables for needed data
       var currentCity = response.name;
       var currentDate = moment().subtract(10, "days").calendar();
       var currentTemp = response.main.temp;
@@ -48,9 +50,19 @@ $(document).ready(function () {
       var currentLat = response.coord.lat;
       var currentLon = response.coord.lon;
       getUV(currentLat, currentLon);
+
+      // Append city to search history
       var newCitySearch = $("<button>").text(currentCity);
       listGroup_Ul.append(newCitySearch);
       today_Div.append(currentCity);
+
+      // Show current city to dashboard
+      dashboardName_H2.text(
+        currentCity + " (" + currentDate + ") " + currentIcon
+      );
+      dashboardTemperature_P.text("Temperature: " + currentTemp + "F");
+      dashboardHumidity_P.text("Humidity: " + currentHumidity + "%");
+      dashboardWind_P.text("UV Index: " + uvIndex);
     });
   }
 
@@ -67,7 +79,7 @@ $(document).ready(function () {
       type: "GET",
       url: queryURL,
     }).then(function (response) {
-      var uvIndex = response.value;
+      uvIndex = response.value;
     });
   }
 
