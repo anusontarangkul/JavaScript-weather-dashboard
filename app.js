@@ -8,6 +8,8 @@ var dashboardWind_P = $("#dashboard-wind");
 var dashboardUV_P = $("#dashboard-uv");
 var dashboardUVInfo_Span = $("#dashboard-uv-info");
 var dashboardIcon_Span = $("#dashboard-icon");
+var degreeSymbol = String.fromCharCode(176);
+
 // search for city button
 // get current and future conditions
 //append results to search history
@@ -44,7 +46,8 @@ $(document).ready(function () {
       // Create variables for needed data
       var currentCity = response.name;
       var currentDate = moment().subtract(10, "days").calendar();
-      var currentTemp = response.main.temp;
+      var currentTemp =
+        Math.round(((response.main.temp * 9) / 5 - 459.67) * 10) / 10;
       var currentHumidity = response.main.humidity;
       var currentWindSpeed = response.wind.speed;
       var currentIcon = response.weather[0].icon;
@@ -58,10 +61,15 @@ $(document).ready(function () {
       today_Div.append(currentCity);
 
       // Show current city to dashboard
-      dashboardName_H2.text(currentCity + " (" + currentDate + ") ");
+      // dashboardName_H2.text(currentCity + " (" + currentDate + ") ");
       var iconURL = "http://openweathermap.org/img/w/" + currentIcon + ".png";
-      dashboardIcon_Span.attr("src", iconURL);
-      dashboardTemperature_P.text("Temperature: " + currentTemp + "F");
+      // dashboardIcon_Span.attr("src", iconURL);
+      dashboardName_H2.html(
+        currentCity + " (" + currentDate + ") " + "<img src='" + iconURL + "'>"
+      );
+      dashboardTemperature_P.text(
+        "Temperature: " + currentTemp + degreeSymbol + "F"
+      );
       dashboardHumidity_P.text("Humidity: " + currentHumidity + "%");
       dashboardWind_P.text("Wind Speed " + currentWindSpeed + " MPH");
     });
