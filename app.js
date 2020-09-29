@@ -7,6 +7,7 @@ var dashboardHumidity_P = $("#dashboard-humidity");
 var dashboardWind_P = $("#dashboard-wind");
 var dashboardUV_P = $("#dashboard-uv");
 var dashboardUVInfo_Span = $("#dashboard-uv-info");
+var dashboardIcon_Span = $("#dashboard-icon");
 // search for city button
 // get current and future conditions
 //append results to search history
@@ -57,9 +58,9 @@ $(document).ready(function () {
       today_Div.append(currentCity);
 
       // Show current city to dashboard
-      dashboardName_H2.text(
-        currentCity + " (" + currentDate + ") " + currentIcon
-      );
+      dashboardName_H2.text(currentCity + " (" + currentDate + ") ");
+      var iconURL = "http://openweathermap.org/img/w/" + currentIcon + ".png";
+      dashboardIcon_Span.attr("src", iconURL);
       dashboardTemperature_P.text("Temperature: " + currentTemp + "F");
       dashboardHumidity_P.text("Humidity: " + currentHumidity + "%");
       dashboardWind_P.text("Wind Speed " + currentWindSpeed + " MPH");
@@ -83,6 +84,7 @@ $(document).ready(function () {
       dashboardUV_P.html(
         "UV Index: " + "<span id='dashboard-uv-info'>" + uvIndex + "</span>"
       );
+      // Color coding UV Index levels
       var uvColorCode = $("#dashboard-uv-info");
       if (uvIndex <= 2) {
         uvColorCode.addClass("bg-success");
