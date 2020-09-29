@@ -1,5 +1,5 @@
 var APIkey = "54f5d77c61f7b7d7da7d2c41a2956900";
-
+var listGroupElement = $(".list-group");
 // search for city button
 // get current and future conditions
 //append results to search history
@@ -43,6 +43,8 @@ $(document).ready(function () {
       var currentLon = response.coord.lon;
       // getUVData(currentLat, currentLon);
       getUV(currentLat, currentLon);
+      var newCitySearch = $("<button>").text(currentCity);
+      listGroupElement.append(newCitySearch);
     });
   }
   // lon -104.98
