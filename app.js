@@ -33,7 +33,14 @@ $(document).ready(function () {
       type: "GET",
       url: queryURL,
     }).then(function (response) {
+      var currentCity = response.name;
+      var currentDate = moment().subtract(10, "days").calendar();
+      var currentTemp = response.main.temp;
+      var currentHumidity = response.main.humidity;
+      var currentWindSpeed = response.wind.speed;
+      var currentIcon = response.weather[0].icon;
       console.log(response);
+      console.log(response.weather[0].icon);
     });
   }
   // $.ajax({
