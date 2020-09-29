@@ -16,25 +16,26 @@ var APIkey = "54f5d77c61f7b7d7da7d2c41a2956900";
 
 $(document).ready(function () {
   $("#search-button").on("click", function () {
-    var searchValue = $("#search-value").val();
+    var searchValueElement = $("#search-value").val();
 
     // clear input box
-    // $("#search-value").val("");
+    $("#search-value").val("");
 
-    // searchWeather(searchValue);
+    searchWeather(searchValueElement);
   });
 
-  // function searchWeather(searchValue) {
-  //   var queryURL =
-  //     "https://api.openweathermap.org/data/2.5/weather?q=" +
-  //     searchValue +
-  //     "&appid=54f5d77c61f7b7d7da7d2c41a2956900";
-  //   $.ajax({
-  //     type: "GET",
-  //     url: queryURL,
-  //   }).then(function (response) {
-  //     console.log(response);
-  //   });
+  function searchWeather(searchValue) {
+    var queryURL =
+      "https://api.openweathermap.org/data/2.5/weather?q=" +
+      searchValue +
+      "&appid=54f5d77c61f7b7d7da7d2c41a2956900";
+    $.ajax({
+      type: "GET",
+      url: queryURL,
+    }).then(function (response) {
+      console.log(response);
+    });
+  }
   // $.ajax({
   //     type: "GET",
   //     url:
