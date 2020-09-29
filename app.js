@@ -5,7 +5,8 @@ var dashboardName_H2 = $("#dashboard-name");
 var dashboardTemperature_P = $("#dashboard-temperature");
 var dashboardHumidity_P = $("#dashboard-humidity");
 var dashboardWind_P = $("#dashboard-wind");
-var dashboardUV_P = $("#dashbaord-uv");
+var dashboardUV_P = $("#dashboard-uv");
+var dashboardUVInfo_Span = $("#dashboard-uv-info");
 var uvIndex = 0;
 // search for city button
 // get current and future conditions
@@ -62,7 +63,7 @@ $(document).ready(function () {
       );
       dashboardTemperature_P.text("Temperature: " + currentTemp + "F");
       dashboardHumidity_P.text("Humidity: " + currentHumidity + "%");
-      dashboardWind_P.text("UV Index: " + uvIndex);
+      dashboardWind_P.text("Wind Speed " + currentWindSpeed + " MPH");
     });
   }
 
@@ -80,6 +81,9 @@ $(document).ready(function () {
       url: queryURL,
     }).then(function (response) {
       uvIndex = response.value;
+      dashboardUV_P.html(
+        "UV Index: " + "<span id='dashboard-uv-info'>" + uvIndex + "</span>"
+      );
     });
   }
 
