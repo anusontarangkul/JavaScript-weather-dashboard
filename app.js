@@ -39,13 +39,32 @@ $(document).ready(function () {
       var currentHumidity = response.main.humidity;
       var currentWindSpeed = response.wind.speed;
       var currentIcon = response.weather[0].icon;
-      console.log(response);
-      console.log(response.weather[0].icon);
+      var currentLat = response.coord.lat;
+      var currentLon = response.coord.lon;
+      // getUVData(currentLat, currentLon);
+      getUV(currentLat, currentLon);
     });
   }
-  // $.ajax({
-  //     type: "GET",
-  //     url:
+  // lon -104.98
+  // lat 39.74
+  // UV Data function
+  function getUV(currentLat, currentLon) {
+    var queryURL =
+      "http://api.openweathermap.org/data/2.5/uvi?lat=" +
+      currentLat +
+      "&lon=" +
+      currentLon +
+      "&appid=54f5d77c61f7b7d7da7d2c41a2956900";
+
+    $.ajax({
+      type: "GET",
+      url: queryURL,
+    }).then(function (response) {
+      console.log(response.value);
+      var uvIndex = response.value;
+    });
+  }
+
   //       "http://api.openweathermap.org/data/2.5/weather?q=" +
   //       searchValue +
   //       "&appid=7ba67ac190f85fdba2e2dc6b9d32e93c&units=imperial",
