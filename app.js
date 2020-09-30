@@ -11,20 +11,6 @@ var dashboardIcon_Span = $("#dashboard-icon");
 var degreeSymbol = String.fromCharCode(176);
 var dashboardBorder = $("#today");
 
-// search for city button
-// get current and future conditions
-//append results to search history
-
-//click current city
-//get details with city name, date, icon, temp, humidity, wind speed, and UV, index
-//color to show conditions are favorable, moderate, or severe
-
-//click future weather conditiosn,
-// get 5 day forecast that displays date, icon ,temperature, and humidity
-
-//click on search history
-//get current and future as well
-
 $(document).ready(function () {
   var history = JSON.parse(window.localStorage.getItem("history")) || [];
 
@@ -72,9 +58,7 @@ $(document).ready(function () {
       today_Div.append(currentCity);
 
       // Show current city to dashboard
-      // dashboardName_H2.text(currentCity + " (" + currentDate + ") ");
       var iconURL = "http://openweathermap.org/img/w/" + currentIcon + ".png";
-      // dashboardIcon_Span.attr("src", iconURL);
       dashboardName_H2.html(
         currentCity + " (" + currentDate + ") " + "<img src='" + iconURL + "'>"
       );
@@ -162,6 +146,7 @@ $(document).ready(function () {
       }
     });
   }
+  // Search previous weather in cities
   $(".history").on("click", "button", function () {
     searchWeather($(this).text());
   });
