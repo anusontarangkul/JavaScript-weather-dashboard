@@ -39,7 +39,6 @@ $(document).ready(function () {
 
     // clear input box
     $("#search-value").val("");
-
     searchWeather(searchValue_Input);
   });
 
@@ -128,9 +127,13 @@ $(document).ready(function () {
       url: queryURL,
     }).then(function (response) {
       $("#forecast").empty();
+      var forecastTitle = $("<h3>").text("5-Day Forecast:");
+      forecastTitle.addClass("mt-3");
+      $("#forecast").append(forecastTitle);
+      $("#forecast").append("<div class='row'>");
       for (var i = 0; i < response.list.length; i++) {
         if (response.list[i].dt_txt.indexOf("15:00:00") !== -1) {
-          var card = $("<div>").addClass("card");
+          var card = $("<div>").addClass("card col-md-2");
           var title = $("<h4>").text(
             new Date(response.list[i].dt_txt).toLocaleDateString()
           );
