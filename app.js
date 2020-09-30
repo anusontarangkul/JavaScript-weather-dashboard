@@ -133,10 +133,13 @@ $(document).ready(function () {
       $("#forecast").append("<div class='row'>");
       for (var i = 0; i < response.list.length; i++) {
         if (response.list[i].dt_txt.indexOf("15:00:00") !== -1) {
-          var card = $("<div>").addClass("card col-md-2");
+          var col = $("<div>").addClass("col-md-2");
+          var card = $("<div>").addClass("card bg-primary text-white");
+          var body = $("<div>").addClass("card-body p-2");
           var title = $("<h4>").text(
             new Date(response.list[i].dt_txt).toLocaleDateString()
           );
+          title.addClass("card-title");
           var icon = $("<img>").attr(
             "src",
             "http://openweathermap.org/img/w/" +
@@ -146,11 +149,15 @@ $(document).ready(function () {
           var temp = $("<p>").text(
             "Temp: " + response.list[i].main.temp_max + degreeSymbol + "F"
           );
+          temp.addClass("card-text");
           var humidity = $("<p>").text(
             "Humidity: " + response.list[i].main.humidity + "%"
           );
-          card.append(title, icon, temp, humidity);
-          $("#forecast").append(card);
+          humidity.addClass("card-text");
+          body.append(title, icon, temp, humidity);
+          card.append(body);
+          col.append(card);
+          $("#forecast .row").append(col);
         }
       }
     });
