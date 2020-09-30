@@ -29,8 +29,9 @@ $(document).ready(function () {
   var history = JSON.parse(window.localStorage.getItem("history")) || [];
 
   for (var i = 0; i < history.length; i++) {
-    var button = $("<button>").text(history[i]);
-    listGroup_Ul.append(button);
+    var savedSearch = history[i].charAt(0).toUpperCase() + history[i].slice(1);
+    var previouslySavedSearch = $("<button>").text(savedSearch);
+    listGroup_Ul.append(previouslySavedSearch);
   }
 
   $("#search-button").on("click", function () {
@@ -126,10 +127,7 @@ $(document).ready(function () {
       type: "GET",
       url: queryURL,
     }).then(function (response) {
-      var oneDayIcon = response.list[0].weather[0].icon;
-      var oneDayTemp = response.list[0].main.temp;
-      var oneDayHumidity = response.list[0].main.humidity;
-      console.log(response);
+      $("#forecast").empty();
       for (var i = 0; i < response.list.length; i++) {
         if (response.list[i].dt_txt.indexOf("15:00:00") !== -1) {
           var card = $("<div>").addClass("card");
@@ -154,4 +152,7 @@ $(document).ready(function () {
       }
     });
   }
+  $(".history").on("click", "button", function () {
+    searchWeather($(this).text());
+  });
 });
