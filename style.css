@@ -2,3 +2,9 @@
   padding: 0.3rem 0.5rem 0.3rem 0.5rem;
   border-radius: 0.3rem;
 }
+
+.border {
+  border: 0.2rem solid gray;
+  padding-left: 2rem;
+  padding-top: 1rem;
+}

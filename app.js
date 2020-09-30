@@ -9,6 +9,7 @@ var dashboardUV_P = $("#dashboard-uv");
 var dashboardUVInfo_Span = $("#dashboard-uv-info");
 var dashboardIcon_Span = $("#dashboard-icon");
 var degreeSymbol = String.fromCharCode(176);
+var dashboardBorder = $("#today");
 
 // search for city button
 // get current and future conditions
@@ -72,6 +73,8 @@ $(document).ready(function () {
       );
       dashboardHumidity_P.text("Humidity: " + currentHumidity + "%");
       dashboardWind_P.text("Wind Speed " + currentWindSpeed + " MPH");
+      dashboardBorder.addClass("border");
+      searchForecast(searchValue_Input);
     });
   }
 
@@ -101,6 +104,21 @@ $(document).ready(function () {
       } else {
         uvColorCode.addClass("bg-danger");
       }
+    });
+  }
+
+  function searchForecast(searchValue_Input) {
+    var queryURL =
+      "https://api.openweathermap.org/data/2.5/forecast?q=" +
+      searchValue_Input +
+      "&appid=54f5d77c61f7b7d7da7d2c41a2956900";
+    $.ajax({
+      type: "GET",
+      url: queryURL,
+    }).then(function (response) {
+      var oneDayIcon = response.list[0].weather[0].icon);
+      var oneDayTemp = response.list[0].main.temp;
+      var oneDayHumidity = response.list[0].main.humidity;
     });
   }
 
