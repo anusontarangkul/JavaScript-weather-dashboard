@@ -8,7 +8,7 @@ This app lets you see the weather in different cities to help you plan your trip
 
 This is a weather app that helps you find the current weather and forecasted weather for your desired city.
 
-![Screenshot](./sceenshot.png)
+![Screenshot](./screenshot.png)
 
 ## Technologies
 
